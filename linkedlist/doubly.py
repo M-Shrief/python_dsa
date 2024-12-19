@@ -81,4 +81,21 @@ class Doubly(Generic[T]):
         self.__size -= 1
         return node.data
 
-    
+    def delete_by_index(self, index: int)-> T | None:
+        if(index < 0 or index >= self.__size):
+            return None
+        if(index == 0):
+            return self.delete_first()
+        if(index == self.__size - 1):
+            return self.delete_last()
+        
+        current = self.__head
+        for count in range(index - 1):
+            current = current.next
+
+        removedNode = current.next
+        current.next = removedNode.next
+        current.next.prev = current
+
+        self.__size -= 1
+        return removedNode.data

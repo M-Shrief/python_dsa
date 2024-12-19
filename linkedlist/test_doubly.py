@@ -81,3 +81,32 @@ class TestDoubly:
         assert deleted3 == 3, errors.wrong_value(deleted3, 3)
         assert doublyList.get_size() == 0, "Size should be 0"
 
+    def test_delete_by_index(self):
+        doublyList = Doubly[int]()
+        doublyList.add_last(1)
+        doublyList.add_last(2)
+        doublyList.add_last(3)
+        doublyList.add_last(4)
+        doublyList.add_last(5)
+
+        deleted1 = doublyList.delete_by_index(2)
+        assert deleted1 == 3, errors.wrong_value(deleted1, 3)
+        assert doublyList.get_size() == 4, "Size should be 4"
+
+        deleted2 = doublyList.delete_by_index(2)
+        assert deleted2 == 4, errors.wrong_value(deleted2, 4)
+        assert doublyList.get_size() == 3, "Size should be 3"
+
+        deleted3 = doublyList.delete_by_index(2)
+        assert deleted3 == 5, errors.wrong_value(deleted3, 5)
+        assert doublyList.get_size() == 2, "Size should be 2"
+
+        deleted4 = doublyList.delete_by_index(2)
+        assert deleted4 is None
+
+        deleted4 = doublyList.delete_by_index(-1)
+        assert deleted4 is None
+
+        deleted4 = doublyList.delete_by_index(20)
+        assert deleted4 is None
+
