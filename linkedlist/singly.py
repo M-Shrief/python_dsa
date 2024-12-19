@@ -3,14 +3,14 @@ from typing import TypeVar, Generic
 T = TypeVar('T')
 
 class SinglyNode(Generic[T]):
-# Singly linkedList Node
+    """Singly Node for a Singly Linkedlist"""
     def __init__(self, data: T, next=None):
         self.data = data
         self.next: SinglyNode | None = next
 
 
 class Singly(Generic[T]):
-# Singly linkedList
+    """Singly linkedList"""
     def __init__(self):
         self.__size = 0
         self.__head: SinglyNode | None = None
@@ -68,6 +68,7 @@ class Singly(Generic[T]):
         return self.delete_by_index(self.__size - 1)
     
     def delete_by_index(self, index: int)-> T | None:
+        """Delete a node by its index, Note: index starts with Zero."""
         if (index < 0 or index >= self.__size):
             return None
 
@@ -85,6 +86,7 @@ class Singly(Generic[T]):
         return removedNode.data
 
     def reverse(self):
+        """Reverse the order of the linkedlist's nodes"""
         next: SinglyNode | None = None
         prev: SinglyNode | None = None
         
@@ -99,6 +101,7 @@ class Singly(Generic[T]):
         self.__head = prev
 
     def get_array(self)->list[T]:
+        """Get all values from the linkedlist in an array"""
         arr: list[T] = []
         if(self.__size == 0):
             return arr
