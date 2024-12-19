@@ -6,8 +6,7 @@ class SinglyNode(Generic[T]):
 # Singly linkedList Node
     def __init__(self, data: T, next=None):
         self.data = data
-        if (next is not None):
-            self.next: SinglyNode | None = next
+        self.next: SinglyNode | None = next
 
 
 class Singly(Generic[T]):
@@ -49,4 +48,38 @@ class Singly(Generic[T]):
         self.__tail = node
 
         self.__size += 1
+
+    def delete_first(self)-> T | None:
+        if(self.__size == 0):
+            return None
+
+        current = self.__head
+
+        if(self.__size == 1):
+            self.__head = None
+            self.__tail = None
+        else:
+            self.__head = current.next
+
+        self.__size -= 1
+        return current.data
+
+    def delete_last(self)-> T | None:
+        return self.delete_by_index(self.__size - 1)
     
+    def delete_by_index(self, index: int)-> T | None:
+        if (index < 0 or index >= self.__size):
+            return None
+
+        if(index == 0):
+            return self.delete_first()
+        
+        current = self.__head
+        for count in range(index - 1):
+            current = current.next
+        
+        removedNode = current.next
+        current.next = current.next.next
+        self.__size -= 1
+
+        return removedNode.data
