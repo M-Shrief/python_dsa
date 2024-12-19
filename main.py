@@ -1,17 +1,13 @@
 # Used mainly to launch the debugger in the IDE (vscodium) 
-from linkedlist.singly import Singly
+from linkedlist.doubly import Doubly
 
 
-singlyList = Singly[int]()
-singlyList.add_last(1)
-singlyList.add_last(2)
-singlyList.add_last(3)
-singlyList.add_last(4)
-singlyList.add_last(5)
+doublyList = Doubly[int]()
+doublyList.add_first(1)
+doublyList.add_first(2)
+doublyList.add_first(3)
 
-singlyList.delete_by_index(2)
-singlyList.delete_by_index(2)
-singlyList.delete_by_index(2)
+deleted1 = doublyList.delete_last()
 
 # from numbers.sum import sum
 # print(sum(1,2))

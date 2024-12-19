@@ -36,7 +36,7 @@ class Doubly(Generic[T]):
             self.__head.prev = doublyNode
             doublyNode.next = self.__head
             self.__head = doublyNode
-            if(self.__size == 0):
+            if(self.__size == 1):
                 self.__tail = doublyNode.next
         
         self.__size += 1
@@ -51,5 +51,34 @@ class Doubly(Generic[T]):
         self.__tail = doublyNode
 
         self.__size += 1
+
+    def delete_first(self)-> T | None:
+        if(self.__size == 0):
+            return None
+        
+        node = self.__head
+        if(self.__size == 1):
+            self.__head = None
+            self.__tail = None
+            self.__size -= 1
+            return node.data
+        
+        self.__head = node.next
+        self.__head.prev = None
+        self.__size -= 1
+        return node.data
+
+    def delete_last(self)-> T | None:
+        if(self.__size == 0 ):
+            return None
+        if(self.__size == 1):
+            return self.delete_first()
+
+        node = self.get_tail()
+        self.__tail = node.prev
+        self.__tail.next = None
+        
+        self.__size -= 1
+        return node.data
 
     

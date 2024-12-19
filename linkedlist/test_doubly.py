@@ -44,3 +44,40 @@ class TestDoubly:
 
         assert head.next.next.prev == head.next, errors.wrong_value(head.next.next.prev, head.next)
         assert head.next.next.prev.data == 2, errors.wrong_value(head.next.next.prev.data, 2)
+
+    def test_delete_first(self):
+        doublyList = Doubly[int]()
+        doublyList.add_first(1)
+        doublyList.add_first(2)
+        doublyList.add_first(3)
+
+        deleted1 = doublyList.delete_first()
+        assert deleted1 == 3, errors.wrong_value(deleted1, 3)
+        assert doublyList.get_size() == 2, "Size should be 2"
+
+        deleted2 = doublyList.delete_first()
+        assert deleted2 == 2, errors.wrong_value(deleted2, 2)
+        assert doublyList.get_size() == 1, "Size should be 1"
+
+        deleted3 = doublyList.delete_first()
+        assert deleted3 == 1, errors.wrong_value(deleted3, 1)
+        assert doublyList.get_size() == 0, "Size should be 0"
+
+    def test_delete_last(self):
+        doublyList = Doubly[int]()
+        doublyList.add_first(1)
+        doublyList.add_first(2)
+        doublyList.add_first(3)
+
+        deleted1 = doublyList.delete_last()
+        assert deleted1 == 1, errors.wrong_value(deleted1, 1)
+        assert doublyList.get_size() == 2, "Size should be 2"
+
+        deleted2 = doublyList.delete_last()
+        assert deleted2 == 2, errors.wrong_value(deleted2, 2)
+        assert doublyList.get_size() == 1, "Size should be 1"
+
+        deleted3 = doublyList.delete_last()
+        assert deleted3 == 3, errors.wrong_value(deleted3, 3)
+        assert doublyList.get_size() == 0, "Size should be 0"
+
