@@ -7,15 +7,15 @@ class SinglyNode(Generic[T]):
     def __init__(self, data: T, next=None):
         self.data = data
         if (next is not None):
-            self.next = next
+            self.next: SinglyNode | None = next
 
 
 class Singly(Generic[T]):
 # Singly linkedList
     def __init__(self):
         self.__size = 0
-        self.__head: None | SinglyNode = None
-        self.__tail: None | SinglyNode = None
+        self.__head: SinglyNode | None = None
+        self.__tail: SinglyNode | None = None
 
     def get_size(self) -> int: 
         return self.__size
@@ -40,6 +40,7 @@ class Singly(Generic[T]):
     def add_last(self, val: T):
         if(self.__size == 0):
             self.add_first(val)
+            return
 
         node = SinglyNode[T](val)
         # old singly.__tail.next will point to the new node
