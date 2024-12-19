@@ -131,3 +131,37 @@ class TestDoubly:
         assert deleted2 == 4, errors.wrong_value(deleted2, 4)
         assert doublyList.get_size() == 3, "Size should be 3"
         assert tail.prev.data == 3, errors.wrong_value(head.next.data, 3)
+
+    def test_reverse(self):
+        singlyList = Doubly[int]()
+        singlyList.add_last(1)
+        singlyList.add_last(2)
+        singlyList.add_last(3)
+        singlyList.add_last(4)
+        singlyList.add_last(5)
+
+        singlyList.reverse()
+
+        head = singlyList.get_head()
+        assert head.data == 5, errors.wrong_value(head.data, 5)
+        assert head.next.data == 4, errors.wrong_value(head.next.data, 4)
+        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data, 3)
+        assert head.next.next.next.data == 2, errors.wrong_value(head.next.next.next.data, 2)
+        assert head.next.next.next.next.data == 1, errors.wrong_value(head.next.next.next.next.data, 1)
+
+    def test_get_array(self):
+        singlyList = Doubly[int]()
+        singlyList.add_last(1)
+        singlyList.add_last(2)
+        singlyList.add_last(3)
+        singlyList.add_last(4)
+        singlyList.add_last(5)
+
+        arr1 = singlyList.get_array()
+        assert arr1 == [1,2,3,4,5]
+        assert arr1 != [1,2,4,5,3]
+
+        singlyList.reverse()
+        arr2 = singlyList.get_array()
+        assert arr2 == [5,4,3,2,1]
+        assert arr2 != [5,4,1,3,2]

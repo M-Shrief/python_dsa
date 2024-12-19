@@ -113,3 +113,32 @@ class Doubly(Generic[T]):
         
         self.__size -= 1
         return node.data
+
+    def reverse(self):
+        """Reverse the order of the linkedlist's nodes"""
+        prev: DoublyNode | None = None
+        next: DoublyNode | None = None
+        current = self.__head
+
+        while(current is not None):
+            next = current.next
+            current.next = prev
+            current.prev = next
+
+            prev = current
+            current = next
+        
+        self.__head = prev
+
+    def get_array(self)->list[T]:
+        """Get all values from the linkedlist in an array"""
+        arr: list[T] = []
+        if(self.__size == 0):
+            return arr
+        
+        current = self.__head
+        arr.append(current.data)
+        while(current.next is not None):
+            current = current.next
+            arr.append(current.data)
+        return arr
