@@ -110,3 +110,24 @@ class TestDoubly:
         deleted4 = doublyList.delete_by_index(20)
         assert deleted4 is None
 
+    def test_delete_by_node(self):
+        doublyList = Doubly[int]()
+        doublyList.add_last(1)
+        doublyList.add_last(2)
+        doublyList.add_last(3)
+        doublyList.add_last(4)
+        doublyList.add_last(5)
+
+        head = doublyList.get_head()
+        two = head.next
+        deleted1 = doublyList.delete_by_node(two)
+        assert deleted1 == 2, errors.wrong_value(deleted1, 2)
+        assert doublyList.get_size() == 4, "Size should be 4"
+        assert head.next.data == 3, errors.wrong_value(head.next.data, 3)
+
+        tail = doublyList.get_tail()
+        four = tail.prev
+        deleted2 = doublyList.delete_by_node(four)
+        assert deleted2 == 4, errors.wrong_value(deleted2, 4)
+        assert doublyList.get_size() == 3, "Size should be 3"
+        assert tail.prev.data == 3, errors.wrong_value(head.next.data, 3)

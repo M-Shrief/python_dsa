@@ -99,3 +99,17 @@ class Doubly(Generic[T]):
 
         self.__size -= 1
         return removedNode.data
+
+    def delete_by_node(self, node: DoublyNode)-> T | None:
+        if(node == self.__head):
+            return self.delete_first()
+        if(node == self.__tail):
+            return self.delete_last()
+        
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        node.next = None
+        node.prev = None
+        
+        self.__size -= 1
+        return node.data
