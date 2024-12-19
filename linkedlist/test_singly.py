@@ -1,5 +1,5 @@
-from singly import Singly 
-
+from .singly import Singly 
+from ..utils import errors
 class TestSignly:
 
     def test_add_first(self):
@@ -11,9 +11,9 @@ class TestSignly:
         assert singlyList.get_size() == 3, "Size should be 3"
 
         head = singlyList.get_head()
-        assert head.data == 3, f"Got: {head.data}, Want: 3"
-        assert head.next.data == 2, f"Got: {head.next.data}, Want: 2"
-        assert head.next.next.data == 1, f"Got: {head.next.next.data}, Want: 1"
+        assert head.data == 3, errors.wrong_value(head.data, 3)
+        assert head.next.data == 2, errors.wrong_value(head.next.data , 2)
+        assert head.next.next.data == 1, errors.wrong_value(head.next.next.data , 1)
         
     def test_add_last(self):
         singlyList = Singly[int]()
@@ -24,7 +24,7 @@ class TestSignly:
         assert singlyList.get_size() == 3, "Size should be 3"
 
         head = singlyList.get_head()
-        assert head.data == 1, f"Got: {head.data}, Want: 1"
-        assert head.next.data == 2, f"Got: {head.next.data}, Want: 2"
-        assert head.next.next.data == 3, f"Got: {head.next.next.data}, Want: 3"
+        assert head.data == 1, errors.wrong_value(head.data , 1)
+        assert head.next.data == 2, errors.wrong_value(head.next.data , 2)
+        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data , 3)
 
