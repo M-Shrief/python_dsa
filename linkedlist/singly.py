@@ -83,3 +83,29 @@ class Singly(Generic[T]):
         self.__size -= 1
 
         return removedNode.data
+
+    def reverse(self):
+        next: SinglyNode | None = None
+        prev: SinglyNode | None = None
+        
+        current = self.__head
+        while (current is not None):
+            next = current.next
+            current.next = prev
+
+            prev = current
+            current = next
+        
+        self.__head = prev
+
+    def get_array(self)->list[T]:
+        arr: list[T] = []
+        if(self.__size == 0):
+            return arr
+        
+        current = self.__head
+        arr.append(current.data)
+        while(current.next is not None):
+            current = current.next
+            arr.append(current.data)
+        return arr
