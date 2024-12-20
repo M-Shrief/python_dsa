@@ -81,20 +81,16 @@ class BST(Generic[T]):
                 return node
             return self.__get_parent_node(node.right, val)
 
+    def get_maximum(self) -> T | None:
+        if(self.__size == 0):
+            return None
+        maximum =  self.__get_maximum_node(self.__root)
+        return maximum.val
 
-    # def delete(self, val: T) -> bool:
-    #     if(self.__size == 0):
-    #         return False
-        
-    #     if(self.__size == 1):
-    #         if(self.__root.val == val):
-    #             self.__root = None
-    #             self.__size -= 1
-    #             return True
-    #         else:
-    #             return False
-            
-
-    # def __delete_node(self, node: BSNode[T], val: T) -> bool:
-    #     if(node is None):
-    #         return False        
+    def __get_maximum_node(self, node: BSNode[T]) -> BSNode[T] | None:
+        if(node is None):
+            return None
+        if(node.right is None):
+            return node
+        else:
+            return self.__get_maximum_node(node.right)
