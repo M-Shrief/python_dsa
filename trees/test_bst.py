@@ -136,3 +136,70 @@ class TestBST:
 
         minimum = bst.get_minimum()
         assert minimum == 1, errors.wrong_value(minimum, 1)
+
+    def test_delete(self):
+        bst = BST[int]()
+        # if we inserted 5,2,1,3,7,6,8
+        # bst should Look like this:
+        #            5
+        #        2		7
+        #    1	  3	  6    8
+        bst.insert(5)
+        bst.insert(2)
+        bst.insert(1)
+        bst.insert(3)
+        bst.insert(7)
+        bst.insert(6)
+        bst.insert(8)
+
+        deleted1 = bst.delete(10)
+        assert deleted1 is False, "Should be False"
+
+        deleted2 = bst.delete(2)
+        assert deleted2 is True, "Should be True"
+        assert bst.search(2) is None, "Should be None"
+        assert bst.get_size() == 6, "Size should be 6"
+        replacement = bst.get_root().left
+        assert replacement.val == 1, errors.wrong_value(replacement.val, 1)
+        assert replacement.right.val == 3, errors.wrong_value(replacement.right.val, 3)
+
+        deleted3 = bst.delete(1)
+        assert deleted3 is True, "Should be True"
+        assert bst.search(1) is None, "Should be None"
+        assert bst.get_size() == 5, "Size should be 5"
+        replacement2 = bst.get_root().left
+        assert replacement2.val == 3, errors.wrong_value(replacement2.val, 3)
+        assert replacement2.right is None, "Should be None"
+
+
+        assert bst.delete(0) is False, "Should be False"
+        assert bst.get_size() == 5, "Size should be 5"
+
+        deleted4 = bst.delete(3)
+        assert deleted4 is True, "Should be True"
+        assert bst.search(3) is None, "Should be None"
+        assert bst.get_size() == 4, "Size should be 4"
+        replacement3 = bst.get_root().left
+        assert replacement3 is None, "Should be None"
+
+
+        deleted5 = bst.delete(7)
+        assert deleted5 is True, "Should be True"
+        assert bst.search(7) is None, "Should be None"
+        assert bst.get_size() == 3, "Size should be 3"
+        replacement4 = bst.get_root().right
+        assert replacement4.val == 6, errors.wrong_value(replacement4.val, 6)
+        assert replacement4.left is None, "Should be None"
+        assert replacement4.right.val == 8, errors.wrong_value(replacement4.right.val, 8)  
+
+        deleted6 = bst.delete(8)
+        assert deleted6 is True, "Should be True"
+        assert bst.search(8) is None, "Should be None"
+        assert bst.get_root().right.right is None, "Should be None"
+
+        deleted7 = bst.delete(5)
+        assert deleted7 is True, "Should be True"
+        assert bst.search(5) is None, "Should be None"
+        assert bst.get_root().val == 6, errors.wrong_value(bst.get_root().val, 6)
+
+

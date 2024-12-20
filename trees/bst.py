@@ -108,3 +108,81 @@ class BST(Generic[T]):
             return node
         else:
             return self.__get_minimum_node(node.left)
+
+    def delete(self, val: T) -> bool:
+        """Delete certain value from BST.
+        if it's deleted successfully, it returns True, if it doesn't exists it return False"""
+        if(self.__size == 0):
+            return False
+        
+        if(self.__size == 1):
+            if(self.__root.val == val):
+                self.__root = None
+                self.__size -= 1
+                return True
+            else:
+                return False
+            
+        result = self.__delete_node(self.__root, val)
+        # Return the boolean value only
+        isDeleted = result[1]
+        if(isDeleted):
+            self.__size -= 1
+        return isDeleted
+
+    def __delete_node(self, node: BSNode[T], val: T) -> tuple[BSNode[T] | None, bool]:
+        if(node is None):
+            return None, False 
+
+        if(val < node.val):
+            return self.__delete_node(node.left, val)
+        if(val > node.val):
+            return self.__delete_node(node.right, val)
+
+        ifLeftNodeExists = node.left is not None       
+        ifRightNodeExists = node.right is not None       
+        
+        # if it have 2 childs:
+        # set node.val to the maximum child in the left subtree.
+        # then go back and delete that leaf key.
+        if(ifLeftNodeExists and ifRightNodeExists):
+            maximumValueInLeftSubTree = self.__get_maximum_node(node.left).val
+            result = self.__delete_node(node.left, maximumValueInLeftSubTree)
+            node.left = result[0]
+            node.val = maximumValueInLeftSubTree
+            return node, True
+        
+        # Note: from here on, don't return the node value to 
+        # avoid deleting other nodes becuase of recursive calls.
+        parent = self.get_parent(node.val)
+        if(ifLeftNodeExists):
+            if(parent is not None):
+                if(parent.val >= node.val):
+                    parent.left = node.left
+                else:
+                    parent.right = node.left
+            # If parent is None
+            else:
+                self.__root = node.left
+
+            return None, True
+
+        elif(ifRightNodeExists):
+            if(parent is not None):
+                if(parent.val >= node.val):
+                    parent.left = node.right
+                else:
+                    parent.right = node.right
+            # If parent is None
+            else:
+                self.__root = node.right
+
+            return None, True
+        
+        else:
+            if(node.val <= parent.val):
+                parent.left = None
+                return None, True
+            else:
+                parent.right = None
+                return None, True
