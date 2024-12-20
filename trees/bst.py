@@ -1,5 +1,5 @@
 from ..queue.queue import Queue
-from typing import TypeVar, Generic, List, Literal, Callable
+from typing import TypeVar, Generic, List, Literal
 
 T = TypeVar("T")
 
@@ -189,6 +189,7 @@ class BST(Generic[T]):
                 return None, True
 
     def BFT(self)->List[T]:
+        """Breadth-First Traversal"""
         arr: List[T] = []
         if(self.__size == 0):
             return arr
@@ -212,6 +213,7 @@ class BST(Generic[T]):
 
 
     def BFS(self, val: T)->BSNode[T] | None:
+        """Breadth-First Search"""
         if(self.__size == 0):
             return None
         node: BSNode[T] | None = None
@@ -236,6 +238,7 @@ class BST(Generic[T]):
         return node
 
     def DFT(self, method: Literal['preOrder', 'inOrder', 'postOrder'])->List[T]:
+        """Depth-First Traversal"""
         arr: List[T] = []
         if(self.__size == 0):
             return arr
@@ -280,6 +283,7 @@ class BST(Generic[T]):
     
             
     def DFS(self, val: T, method: Literal['preOrder', 'inOrder', 'postOrder'])->BSNode[T] | None:
+        """Depth-First Search"""
         if(self.__size == 0):
             return None
         
