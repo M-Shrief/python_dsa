@@ -18,7 +18,7 @@ class LRU(Generic[T]):
         self.__dl = Doubly[T]()
         # A hashmap using dictionaries, strings as a key
         # and the value is a DoublyNode which have Item[T] as data.
-        self.__storage = dict[str, DoublyNode[Item[T]]]()
+        self.__storage: Dict[str, DoublyNode[Item[T]]]  = {}
         # LRU capacity
         self.__capacity = capacity
 
