@@ -218,3 +218,37 @@ class TestBST:
         bst.insert(8)
 
         assert bst.BFT() == [5, 2, 7, 1, 3, 6, 8], errors.wrong_value(bst.BFT(), [5, 2, 7, 1, 3, 6, 8])
+
+    def test_BFS(self):
+        bst = BST[int]()
+        # if we inserted 5,2,1,3,7,6,8
+        # bst should Look like this:
+        #            5
+        #        2		7
+        #    1	  3	  6    8
+        bst.insert(5)
+        bst.insert(2)
+        bst.insert(1)
+        bst.insert(3)
+        bst.insert(7)
+        bst.insert(6)
+        bst.insert(8)
+
+        assert bst.BFS(10) is None, "Should be None"
+        two = bst.BFS(2)
+        assert two.val == 2, errors.wrong_value(two.val, 2)
+        assert two.left.val == 1, errors.wrong_value(two.left.val, 1)
+        assert two.right.val == 3, errors.wrong_value(two.right.val, 3)
+
+        seven = bst.BFS(7)
+        assert seven.val == 7, errors.wrong_value(seven.val, 7)
+        assert seven.left.val == 6, errors.wrong_value(seven.left.val, 6)
+        assert seven.right.val == 8, errors.wrong_value(seven.right.val, 8)
+
+        one = bst.BFS(1)
+        assert one.val == 1, errors.wrong_value(one.val, 1)
+        assert one.left is None and one.right is None, "Shouldn't have children"
+
+        six = bst.BFS(6)
+        assert six.val == 6, errors.wrong_value(six.val, 6)
+        assert six.left is None and six.right is None, "Shouldn't have children"

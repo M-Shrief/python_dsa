@@ -209,3 +209,28 @@ class BST(Generic[T]):
                 queue.enqueue(rightChild)
         
         return arr
+
+
+    def BFS(self, val: T)->BSNode[T] | None:
+        if(self.__size == 0):
+            return None
+        node: BSNode[T] | None = None
+
+        queue = Queue[BSNode[T]]()
+        queue.enqueue(self.__root)
+
+        while(queue.get_size() > 0):
+            current = queue.dequeue()
+            if(val == current.val):
+                node = current
+                break
+
+            leftChild = current.left
+            if(leftChild is not None):
+                queue.enqueue(leftChild)
+            
+            rightChild = current.right
+            if(rightChild is not None):
+                queue.enqueue(rightChild)
+        
+        return node
