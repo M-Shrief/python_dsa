@@ -31,3 +31,26 @@ class TestBST:
 
         assert root.right.left.val == 6, errors.wrong_value(root.right.left.val, 6)
         assert root.right.right.val == 8, errors.wrong_value(root.right.right.val, 8)
+    
+    def test_search(self):
+        bst = BST[int]()
+        # if we inserted 5,2,1,3,7,6,8
+        # bst should Look like this:
+        #            5
+        #        2		7
+        #    1	  3	  6    8
+        bst.insert(5)
+        bst.insert(2)
+        bst.insert(1)
+        bst.insert(3)
+        bst.insert(7)
+        bst.insert(6)
+        bst.insert(8)
+
+        two = bst.search(2)
+        assert two.val == 2, errors.wrong_value(two.val, 2)
+        assert two.left.val == 1, errors.wrong_value(two.val, 1)
+        assert two.right.val == 3, errors.wrong_value(two.val, 3)
+
+        six = bst.search(6)
+        assert six.val == 6, errors.wrong_value(six.val, 6)

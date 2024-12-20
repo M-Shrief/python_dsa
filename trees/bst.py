@@ -18,7 +18,7 @@ class BST(Generic[T]):
     def get_size(self)->int:
         return self.__size
     
-    def get_root(self)-> BSNode | None:
+    def get_root(self)-> BSNode[T] | None:
         return self.__root
     
     def insert(self, val: T):
@@ -44,3 +44,21 @@ class BST(Generic[T]):
                 newNode = BSNode[T](val)
                 node.right = newNode
                 self.__size += 1
+
+    def search(self, val: T)-> BSNode[T] | None:
+        if(self.__size == 0):
+            return None
+        return self.__search_node(self.__root, val)
+
+    def __search_node(self, node: BSNode[T] | None, val: T)-> BSNode[T] | None:
+        if(node is None):
+            return None
+        
+        if(val == node.val):
+            return node
+
+        if(val < node.val):
+            return self.__search_node(node.left, val)
+        else:
+            return self.__search_node(node.right, val)
+ 
