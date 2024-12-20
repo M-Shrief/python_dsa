@@ -85,7 +85,7 @@ class TestBST:
         seven = bst.get_parent(8)
         assert seven.val == 7, errors.wrong_value(seven.val, 7)
     
-    def test_maximum(self):
+    def test_get_maximum(self):
         bst = BST[int]()
         # if we inserted 5,2,1,3,7,6,8
         # bst should Look like this:
@@ -110,3 +110,29 @@ class TestBST:
 
         maximum = bst.get_maximum()
         assert maximum == 8, errors.wrong_value(maximum, 8)
+
+    def test_get_minimum(self):
+        bst = BST[int]()
+        # if we inserted 5,2,1,3,7,6,8
+        # bst should Look like this:
+        #            5
+        #        2		7
+        #    1	  3	  6    8
+        bst.insert(5)
+        bst.insert(2)
+        bst.insert(7)
+
+        minimum = bst.get_minimum()
+        assert minimum == 2, errors.wrong_value(minimum, 2)
+        
+        bst.insert(3)
+        bst.insert(1)
+
+        minimum = bst.get_minimum()
+        assert minimum == 1, errors.wrong_value(minimum, 1)
+
+        bst.insert(6)
+        bst.insert(8)
+
+        minimum = bst.get_minimum()
+        assert minimum == 1, errors.wrong_value(minimum, 1)

@@ -94,3 +94,17 @@ class BST(Generic[T]):
             return node
         else:
             return self.__get_maximum_node(node.right)
+
+    def get_minimum(self) -> T | None:
+        if(self.__size == 0):
+            return None
+        minimum =  self.__get_minimum_node(self.__root)
+        return minimum.val
+
+    def __get_minimum_node(self, node: BSNode[T]) -> BSNode[T] | None:
+        if(node is None):
+            return None
+        if(node.left is None):
+            return node
+        else:
+            return self.__get_minimum_node(node.left)
