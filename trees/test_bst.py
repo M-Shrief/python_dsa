@@ -277,3 +277,38 @@ class TestBST:
 
         postOrderTraversal = bst.DFT('postOrder')
         assert postOrderTraversal == [1, 3, 2, 6, 8, 7, 5], errors.wrong_value(postOrderTraversal, [1, 3, 2, 6, 8, 7, 5])
+
+    def test_DFS(self):
+        bst = BST[int]()
+        # if we inserted 5,2,1,3,7,6,8
+        # bst should Look like this:
+        #            5
+        #        2		7
+        #    1	  3	  6    8
+        bst.insert(5)
+        bst.insert(2)
+        bst.insert(1)
+        bst.insert(3)
+        bst.insert(7)
+        bst.insert(6)
+        bst.insert(8)
+
+        two = bst.search(2)
+        assert bst.DFS(2, 'preOrder') == two, "Not the right node"
+        assert bst.DFS(2, 'inOrder') == two, "Not the right node"
+        assert bst.DFS(2, 'postOrder') == two, "Not the right node"
+
+        seven = bst.search(7)
+        assert bst.DFS(7, 'preOrder') == seven, "Not the right node"
+        assert bst.DFS(7, 'inOrder') == seven, "Not the right node"
+        assert bst.DFS(7, 'postOrder') == seven, "Not the right node"
+
+        eight = bst.search(8)
+        assert bst.DFS(8, 'preOrder') == eight, "Not the right node"
+        assert bst.DFS(8, 'inOrder') == eight, "Not the right node"
+        assert bst.DFS(8, 'postOrder') == eight, "Not the right node"
+
+        three = bst.search(3)
+        assert bst.DFS(3, 'preOrder') == three, "Not the right node"
+        assert bst.DFS(3, 'inOrder') == three, "Not the right node"
+        assert bst.DFS(3, 'postOrder') == three, "Not the right node"

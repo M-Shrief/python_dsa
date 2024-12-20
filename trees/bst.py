@@ -279,3 +279,66 @@ class BST(Generic[T]):
         return arr
     
             
+    def DFS(self, val: T, method: Literal['preOrder', 'inOrder', 'postOrder'])->BSNode[T] | None:
+        if(self.__size == 0):
+            return None
+        
+        match method:
+            case "preOrder":
+                return self.__pre_order_search(val, self.__root)
+            case "inOrder":
+                return self.__in_order_search(val, self.__root)
+            case "postOrder":
+                return self.__post_order_search(val, self.__root)
+            case _: # default
+                return self.__in_order_search(val, self.__root)
+
+    def __pre_order_search(self, val: T, node: BSNode[T] | None):
+        if(node is None):
+            return None
+        if(val == node.val):
+            return node
+
+        res1 = self.__pre_order_search(val, node.left)
+        if(res1 is not None):
+            return res1
+
+        res2 = self.__pre_order_search(val, node.right)
+        if(res2 is not None):
+            return res2
+
+        return None
+
+    def __in_order_search(self, val: T, node: BSNode[T] | None):
+        if(node is None):
+            return None
+
+        res1 = self.__in_order_search(val, node.left)
+        if(res1 is not None):
+            return res1
+
+        if(val == node.val):
+            return node
+
+        res2 = self.__in_order_search(val, node.right)
+        if(res2 is not None):
+            return res2
+
+        return None
+    
+    def __post_order_search(self, val: T, node: BSNode[T] | None):
+        if(node is None):
+            return None
+
+        res1 = self.__post_order_search(val, node.left)
+        if(res1 is not None):
+            return res1
+
+        res2 = self.__post_order_search(val, node.right)
+        if(res2 is not None):
+            return res2
+
+        if(val == node.val):
+            return node
+        
+        return None
