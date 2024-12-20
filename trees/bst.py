@@ -1,4 +1,5 @@
-from typing import TypeVar, Generic
+from ..queue.queue import Queue
+from typing import TypeVar, Generic, List
 
 T = TypeVar("T")
 
@@ -186,3 +187,25 @@ class BST(Generic[T]):
             else:
                 parent.right = None
                 return None, True
+
+    def BFT(self)->List[T]:
+        arr: List[T] = []
+        if(self.__size == 0):
+            return arr
+        
+        queue = Queue[BSNode[T]]()
+        queue.enqueue(self.__root)
+
+        while(queue.get_size() > 0):
+            current = queue.dequeue()
+            arr.append(current.val)
+
+            leftChild = current.left
+            if(leftChild is not None):
+                queue.enqueue(leftChild)
+            
+            rightChild = current.right
+            if(rightChild is not None):
+                queue.enqueue(rightChild)
+        
+        return arr
