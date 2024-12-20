@@ -1,5 +1,5 @@
 from ..queue.queue import Queue
-from typing import TypeVar, Generic, List
+from typing import TypeVar, Generic, List, Literal, Callable
 
 T = TypeVar("T")
 
@@ -234,3 +234,48 @@ class BST(Generic[T]):
                 queue.enqueue(rightChild)
         
         return node
+
+    def DFT(self, method: Literal['preOrder', 'inOrder', 'postOrder'])->List[T]:
+        arr: List[T] = []
+        if(self.__size == 0):
+            return arr
+        
+        match method:
+            case "preOrder":
+                return self.__pre_order_traversal(self.__root, arr)
+            case "inOrder":
+                return self.__in_order_traversal(self.__root, arr)
+            case "postOrder":
+                return self.__post_order_traversal(self.__root, arr)
+            case _: # default
+                return self.__in_order_traversal(self.__root, arr)
+
+        return arr
+    def __pre_order_traversal(self, node: BSNode[T] | None, arr: List[T]):
+        if(node is None):
+            return arr
+
+        arr.append(node.val)
+        self.__pre_order_traversal(node.left, arr)
+        self.__pre_order_traversal(node.right, arr)
+        return arr
+
+    def __in_order_traversal(self, node: BSNode[T] | None, arr: List[T]):
+        if(node is None):
+            return arr
+
+        self.__in_order_traversal(node.left, arr)
+        arr.append(node.val)
+        self.__in_order_traversal(node.right, arr)
+        return arr
+    
+    def __post_order_traversal(self, node: BSNode[T] | None, arr: List[T]):
+        if(node is None):
+            return arr
+
+        self.__post_order_traversal(node.left, arr)
+        self.__post_order_traversal(node.right, arr)
+        arr.append(node.val)
+        return arr
+    
+            

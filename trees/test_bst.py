@@ -252,3 +252,28 @@ class TestBST:
         six = bst.BFS(6)
         assert six.val == 6, errors.wrong_value(six.val, 6)
         assert six.left is None and six.right is None, "Shouldn't have children"
+
+
+    def test_DFT(self):
+        bst = BST[int]()
+        # if we inserted 5,2,1,3,7,6,8
+        # bst should Look like this:
+        #            5
+        #        2		7
+        #    1	  3	  6    8
+        bst.insert(5)
+        bst.insert(2)
+        bst.insert(1)
+        bst.insert(3)
+        bst.insert(7)
+        bst.insert(6)
+        bst.insert(8)
+
+        preOrderTraversal = bst.DFT('preOrder')
+        assert preOrderTraversal == [5, 2, 1, 3, 7, 6, 8], errors.wrong_value(preOrderTraversal, [5, 2, 1, 3, 7, 6, 8])
+
+        inOrderTraversal = bst.DFT('inOrder')
+        assert inOrderTraversal == [1, 2, 3, 5, 6, 7, 8], errors.wrong_value(inOrderTraversal, [1, 2, 3, 5, 6, 7, 8])
+
+        postOrderTraversal = bst.DFT('postOrder')
+        assert postOrderTraversal == [1, 3, 2, 6, 8, 7, 5], errors.wrong_value(postOrderTraversal, [1, 3, 2, 6, 8, 7, 5])
