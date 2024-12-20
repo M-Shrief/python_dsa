@@ -54,3 +54,33 @@ class TestBST:
 
         six = bst.search(6)
         assert six.val == 6, errors.wrong_value(six.val, 6)
+
+    def test_get_parent(self):
+        bst = BST[int]()
+        # if we inserted 5,2,1,3,7,6,8
+        # bst should Look like this:
+        #            5
+        #        2		7
+        #    1	  3	  6    8
+        bst.insert(5)
+        bst.insert(2)
+        bst.insert(1)
+        bst.insert(3)
+        bst.insert(7)
+        bst.insert(6)
+        bst.insert(8)
+
+        five = bst.get_parent(2)
+        assert five.val == 5, errors.wrong_value(five.val, 5)
+        five = bst.get_parent(7)
+        assert five.val == 5, errors.wrong_value(five.val, 5)
+
+        two = bst.get_parent(1)
+        assert two.val == 2, errors.wrong_value(two.val, 2)
+        two = bst.get_parent(3)
+        assert two.val == 2, errors.wrong_value(two.val, 2)
+
+        seven = bst.get_parent(6)
+        assert seven.val == 7, errors.wrong_value(seven.val, 7)
+        seven = bst.get_parent(8)
+        assert seven.val == 7, errors.wrong_value(seven.val, 7)

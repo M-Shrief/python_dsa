@@ -62,3 +62,39 @@ class BST(Generic[T]):
         else:
             return self.__search_node(node.right, val)
  
+    def get_parent(self, val: T) -> BSNode[T] | None:
+        """Get the parent node, which one of its childs have val as value"""
+        if(self.__size == 0):
+            return None
+        return self.__get_parent_node(self.__root, val)
+
+    def __get_parent_node(self, node: BSNode[T], val: T) -> BSNode[T] | None:
+        if(node is None or node.val == val):
+            return None
+        
+        if(val < node.val):
+            if(val == node.left.val):
+                return node
+            return self.__get_parent_node(node.left, val)
+        else:
+            if(val == node.right.val):
+                return node
+            return self.__get_parent_node(node.right, val)
+
+
+    # def delete(self, val: T) -> bool:
+    #     if(self.__size == 0):
+    #         return False
+        
+    #     if(self.__size == 1):
+    #         if(self.__root.val == val):
+    #             self.__root = None
+    #             self.__size -= 1
+    #             return True
+    #         else:
+    #             return False
+            
+
+    # def __delete_node(self, node: BSNode[T], val: T) -> bool:
+    #     if(node is None):
+    #         return False        
