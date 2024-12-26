@@ -23,6 +23,10 @@ class TestLRU:
         lru.put("five", 5)
         assert lru.get_top().val == 5, errors.wrong_value(lru.get_top().val, 5)
         assert lru.get("two") is None, "Should be None"
+        assert lru.get("one") is None, "Should be None"
+
+        assert lru.get("three") == 3, errors.wrong_value(lru.get("three"), 3)
+        assert lru.get("four") == 4, errors.wrong_value(lru.get("four"), 4)
 
     def test_get(self):
         lru = LRU[int](3)

@@ -59,4 +59,5 @@ class LRU(Generic[T]):
         
         self.__dl.delete_by_node(n)
         self.__dl.add_first(n.data)
+        self.__storage[key] = self.__dl.get_head()
         return n.data.val

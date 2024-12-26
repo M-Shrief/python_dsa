@@ -101,6 +101,8 @@ class Doubly(Generic[T]):
         return removedNode.data
 
     def delete_by_node(self, node: DoublyNode)-> T | None:
+        if(node is None): 
+            return None
         if(node == self.__head):
             return self.delete_first()
         if(node == self.__tail):
