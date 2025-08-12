@@ -1,5 +1,5 @@
 from ..queue.queue import Queue
-from typing import TypeVar, Generic, List, Literal
+from typing import TypeVar, Generic, Literal
 
 T = TypeVar("T")
 
@@ -7,13 +7,13 @@ class BSNode(Generic[T]):
     """Binary Search Tree node"""
     def __init__(self, val: T):
         self.val = val
-        self.left: BSNode | None = None
-        self.right: BSNode | None = None
+        self.left: BSNode[T] | None = None
+        self.right: BSNode[T] | None = None
 
 class BST(Generic[T]):
     """Binary Search Tree"""
     def __init__(self):
-        self.__root: BSNode | None = None
+        self.__root: BSNode[T] | None = None
         self.__size: int = 0
     
     def get_size(self)->int:
@@ -28,10 +28,10 @@ class BST(Generic[T]):
             self.__root = newNode
             self.__size += 1
         else:
-            self.__insert_node(self.__root, val)
-    
-    def __insert_node(self, node: BSNode, val: T):
-        if(val <= node.val):
+            self.__insert_node(self.__root, val) # pyright:ignore[reportArgumentType]
+
+    def __insert_node(self, node: BSNode[T], val: T):
+        if(val <= node.val): # pyright:ignore[reportOperatorIssue]
             if(node.left is not None):
                 self.__insert_node(node.left, val)
             else:
@@ -58,7 +58,7 @@ class BST(Generic[T]):
         if(val == node.val):
             return node
 
-        if(val < node.val):
+        if(val < node.val): # pyright:ignore[reportOperatorIssue]
             return self.__search_node(node.left, val)
         else:
             return self.__search_node(node.right, val)
@@ -67,30 +67,28 @@ class BST(Generic[T]):
         """Get the parent node, which one of its childs have val as value"""
         if(self.__size == 0):
             return None
-        return self.__get_parent_node(self.__root, val)
+        return self.__get_parent_node(self.__root, val) # pyright:ignore[reportArgumentType]
 
     def __get_parent_node(self, node: BSNode[T], val: T) -> BSNode[T] | None:
-        if(node is None or node.val == val):
+        if(node.val == val):
             return None
         
-        if(val < node.val):
-            if(val == node.left.val):
+        if(val < node.val): # pyright:ignore[reportOperatorIssue]
+            if(val == node.left.val): # pyright:ignore[reportOptionalMemberAccess]
                 return node
-            return self.__get_parent_node(node.left, val)
+            return self.__get_parent_node(node.left, val) # pyright:ignore[reportArgumentType]
         else:
-            if(val == node.right.val):
+            if(val == node.right.val): # pyright:ignore[reportOptionalMemberAccess]
                 return node
-            return self.__get_parent_node(node.right, val)
+            return self.__get_parent_node(node.right, val) # pyright:ignore[reportArgumentType]
 
     def get_maximum(self) -> T | None:
         if(self.__size == 0):
             return None
-        maximum =  self.__get_maximum_node(self.__root)
-        return maximum.val
+        maximum =  self.__get_maximum_node(self.__root) # pyright:ignore[reportArgumentType]
+        return maximum.val # pyright:ignore[reportOptionalMemberAccess]
 
     def __get_maximum_node(self, node: BSNode[T]) -> BSNode[T] | None:
-        if(node is None):
-            return None
         if(node.right is None):
             return node
         else:
@@ -99,12 +97,10 @@ class BST(Generic[T]):
     def get_minimum(self) -> T | None:
         if(self.__size == 0):
             return None
-        minimum =  self.__get_minimum_node(self.__root)
-        return minimum.val
+        minimum =  self.__get_minimum_node(self.__root) # pyright:ignore[reportArgumentType]
+        return minimum.val # pyright:ignore[reportOptionalMemberAccess]
 
     def __get_minimum_node(self, node: BSNode[T]) -> BSNode[T] | None:
-        if(node is None):
-            return None
         if(node.left is None):
             return node
         else:
@@ -117,7 +113,7 @@ class BST(Generic[T]):
             return False
         
         if(self.__size == 1):
-            if(self.__root.val == val):
+            if(self.__root.val == val): # pyright:ignore[reportOptionalMemberAccess]
                 self.__root = None
                 self.__size -= 1
                 return True
@@ -131,14 +127,17 @@ class BST(Generic[T]):
             self.__size -= 1
         return isDeleted
 
-    def __delete_node(self, node: BSNode[T], val: T) -> tuple[BSNode[T] | None, bool]:
+    def __delete_node(self, node: BSNode[T] | None, val: T) -> tuple[BSNode[T] | None, bool]:
         if(node is None):
             return None, False 
 
-        if(val < node.val):
-            return self.__delete_node(node.left, val)
-        if(val > node.val):
-            return self.__delete_node(node.right, val)
+        if(val < node.val): # pyright:ignore[reportOperatorIssue]
+            return self.__delete_node(node.left, val) 
+        if(val > node.val): # pyright:ignore[reportOperatorIssue]
+            return self.__delete_node(node.right, val) 
+            
+        ifLeftNodeExists = node.left is not None       
+        ifRightNodeExists = node.right is not None            
 
         ifLeftNodeExists = node.left is not None       
         ifRightNodeExists = node.right is not None       
@@ -146,9 +145,9 @@ class BST(Generic[T]):
         # if it have 2 childs:
         # set node.val to the maximum child in the left subtree.
         # then go back and delete that leaf key.
-        if(ifLeftNodeExists and ifRightNodeExists):
-            maximumValueInLeftSubTree = self.__get_maximum_node(node.left).val
-            result = self.__delete_node(node.left, maximumValueInLeftSubTree)
+        if(ifLeftNodeExists and ifRightNodeExists): 
+            maximumValueInLeftSubTree = self.__get_maximum_node(node.left).val # pyright:ignore[reportArgumentType, reportOptionalMemberAccess]
+            result = self.__delete_node(node.left, maximumValueInLeftSubTree) # pyright:ignore[reportArgumentType]
             node.left = result[0]
             node.val = maximumValueInLeftSubTree
             return node, True
@@ -158,7 +157,7 @@ class BST(Generic[T]):
         parent = self.get_parent(node.val)
         if(ifLeftNodeExists):
             if(parent is not None):
-                if(parent.val >= node.val):
+                if(parent.val >= node.val):  # pyright:ignore[reportOperatorIssue]
                     parent.left = node.left
                 else:
                     parent.right = node.left
@@ -170,7 +169,7 @@ class BST(Generic[T]):
 
         elif(ifRightNodeExists):
             if(parent is not None):
-                if(parent.val >= node.val):
+                if(parent.val >= node.val):  # pyright:ignore[reportOperatorIssue]
                     parent.left = node.right
                 else:
                     parent.right = node.right
@@ -181,31 +180,31 @@ class BST(Generic[T]):
             return None, True
         
         else:
-            if(node.val <= parent.val):
-                parent.left = None
+            if(node.val <= parent.val):  # pyright:ignore[reportOperatorIssue, reportOptionalMemberAccess]
+                parent.left = None # pyright:ignore[reportOptionalMemberAccess]
                 return None, True
             else:
-                parent.right = None
+                parent.right = None # pyright:ignore[reportOptionalMemberAccess]
                 return None, True
 
-    def BFT(self)->List[T]:
+    def BFT(self)->list[T]:
         """Breadth-First Traversal"""
-        arr: List[T] = []
+        arr: list[T] = []
         if(self.__size == 0):
             return arr
         
         queue = Queue[BSNode[T]]()
-        queue.enqueue(self.__root)
+        queue.enqueue(self.__root) # pyright:ignore[reportArgumentType]
 
         while(queue.get_size() > 0):
             current = queue.dequeue()
-            arr.append(current.val)
+            arr.append(current.val)  # pyright:ignore[ reportOptionalMemberAccess]
 
-            leftChild = current.left
+            leftChild = current.left  # pyright:ignore[reportOptionalMemberAccess]
             if(leftChild is not None):
                 queue.enqueue(leftChild)
             
-            rightChild = current.right
+            rightChild = current.right  # pyright:ignore[reportOptionalMemberAccess]
             if(rightChild is not None):
                 queue.enqueue(rightChild)
         
@@ -219,27 +218,27 @@ class BST(Generic[T]):
         node: BSNode[T] | None = None
 
         queue = Queue[BSNode[T]]()
-        queue.enqueue(self.__root)
+        queue.enqueue(self.__root)  # pyright:ignore[reportArgumentType]
 
         while(queue.get_size() > 0):
             current = queue.dequeue()
-            if(val == current.val):
+            if(val == current.val): # pyright:ignore[reportOptionalMemberAccess]
                 node = current
                 break
 
-            leftChild = current.left
+            leftChild = current.left  # pyright:ignore[reportOptionalMemberAccess]
             if(leftChild is not None):
                 queue.enqueue(leftChild)
-            
-            rightChild = current.right
+
+            rightChild = current.right  # pyright:ignore[reportOptionalMemberAccess]
             if(rightChild is not None):
                 queue.enqueue(rightChild)
         
         return node
 
-    def DFT(self, method: Literal['preOrder', 'inOrder', 'postOrder'])->List[T]:
+    def DFT(self, method: Literal['preOrder', 'inOrder', 'postOrder'])->list[T]:
         """Depth-First Traversal"""
-        arr: List[T] = []
+        arr: list[T] = []
         if(self.__size == 0):
             return arr
         
@@ -250,11 +249,10 @@ class BST(Generic[T]):
                 return self.__in_order_traversal(self.__root, arr)
             case "postOrder":
                 return self.__post_order_traversal(self.__root, arr)
-            case _: # default
-                return self.__in_order_traversal(self.__root, arr)
+            # case _: # default
+            #     return self.__in_order_traversal(self.__root, arr)
 
-        return arr
-    def __pre_order_traversal(self, node: BSNode[T] | None, arr: List[T]):
+    def __pre_order_traversal(self, node: BSNode[T] | None, arr: list[T]):
         if(node is None):
             return arr
 
@@ -263,7 +261,7 @@ class BST(Generic[T]):
         self.__pre_order_traversal(node.right, arr)
         return arr
 
-    def __in_order_traversal(self, node: BSNode[T] | None, arr: List[T]):
+    def __in_order_traversal(self, node: BSNode[T] | None, arr: list[T]):
         if(node is None):
             return arr
 
@@ -272,7 +270,7 @@ class BST(Generic[T]):
         self.__in_order_traversal(node.right, arr)
         return arr
     
-    def __post_order_traversal(self, node: BSNode[T] | None, arr: List[T]):
+    def __post_order_traversal(self, node: BSNode[T] | None, arr: list[T]):
         if(node is None):
             return arr
 

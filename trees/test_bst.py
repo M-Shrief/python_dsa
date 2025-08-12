@@ -21,16 +21,16 @@ class TestBST:
         assert bst.get_size() == 7, "Size should be 7"
 
         root = bst.get_root()
-        assert root.val == 5, errors.wrong_value(root.val, 5)
+        assert root.val == 5, errors.wrong_value(root.val, 5)  # pyright:ignore[reportOptionalMemberAccess]
 
-        assert root.left.val == 2, errors.wrong_value(root.left.val, 2)
-        assert root.right.val == 7, errors.wrong_value(root.right.val, 7)
+        assert root.left.val == 2, errors.wrong_value(root.left.val, 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert root.right.val == 7, errors.wrong_value(root.right.val, 7) # pyright:ignore[reportOptionalMemberAccess]
 
-        assert root.left.left.val == 1, errors.wrong_value(root.left.left.val, 1)
-        assert root.left.right.val == 3, errors.wrong_value(root.left.right.val, 3)
+        assert root.left.left.val == 1, errors.wrong_value(root.left.left.val, 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert root.left.right.val == 3, errors.wrong_value(root.left.right.val, 3) # pyright:ignore[reportOptionalMemberAccess]
 
-        assert root.right.left.val == 6, errors.wrong_value(root.right.left.val, 6)
-        assert root.right.right.val == 8, errors.wrong_value(root.right.right.val, 8)
+        assert root.right.left.val == 6, errors.wrong_value(root.right.left.val, 6) # pyright:ignore[reportOptionalMemberAccess]
+        assert root.right.right.val == 8, errors.wrong_value(root.right.right.val, 8) # pyright:ignore[reportOptionalMemberAccess]
     
     def test_search(self):
         bst = BST[int]()
@@ -48,12 +48,12 @@ class TestBST:
         bst.insert(8)
 
         two = bst.search(2)
-        assert two.val == 2, errors.wrong_value(two.val, 2)
-        assert two.left.val == 1, errors.wrong_value(two.val, 1)
-        assert two.right.val == 3, errors.wrong_value(two.val, 3)
+        assert two.val == 2, errors.wrong_value(two.val, 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert two.left.val == 1, errors.wrong_value(two.val, 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert two.right.val == 3, errors.wrong_value(two.val, 3) # pyright:ignore[reportOptionalMemberAccess]
 
         six = bst.search(6)
-        assert six.val == 6, errors.wrong_value(six.val, 6)
+        assert six.val == 6, errors.wrong_value(six.val, 6) # pyright:ignore[reportOptionalMemberAccess]
 
     def test_get_parent(self):
         bst = BST[int]()
@@ -71,19 +71,19 @@ class TestBST:
         bst.insert(8)
 
         five = bst.get_parent(2)
-        assert five.val == 5, errors.wrong_value(five.val, 5)
+        assert five.val == 5, errors.wrong_value(five.val, 5) # pyright:ignore[reportOptionalMemberAccess]
         five = bst.get_parent(7)
-        assert five.val == 5, errors.wrong_value(five.val, 5)
+        assert five.val == 5, errors.wrong_value(five.val, 5) # pyright:ignore[reportOptionalMemberAccess]
 
         two = bst.get_parent(1)
-        assert two.val == 2, errors.wrong_value(two.val, 2)
+        assert two.val == 2, errors.wrong_value(two.val, 2) # pyright:ignore[reportOptionalMemberAccess]
         two = bst.get_parent(3)
-        assert two.val == 2, errors.wrong_value(two.val, 2)
+        assert two.val == 2, errors.wrong_value(two.val, 2) # pyright:ignore[reportOptionalMemberAccess]
 
         seven = bst.get_parent(6)
-        assert seven.val == 7, errors.wrong_value(seven.val, 7)
+        assert seven.val == 7, errors.wrong_value(seven.val, 7) # pyright:ignore[reportOptionalMemberAccess]
         seven = bst.get_parent(8)
-        assert seven.val == 7, errors.wrong_value(seven.val, 7)
+        assert seven.val == 7, errors.wrong_value(seven.val, 7) # pyright:ignore[reportOptionalMemberAccess]
     
     def test_get_maximum(self):
         bst = BST[int]()
@@ -159,18 +159,17 @@ class TestBST:
         assert deleted2 is True, "Should be True"
         assert bst.search(2) is None, "Should be None"
         assert bst.get_size() == 6, "Size should be 6"
-        replacement = bst.get_root().left
-        assert replacement.val == 1, errors.wrong_value(replacement.val, 1)
-        assert replacement.right.val == 3, errors.wrong_value(replacement.right.val, 3)
+        replacement = bst.get_root().left # pyright:ignore[reportOptionalMemberAccess]
+        assert replacement.val == 1, errors.wrong_value(replacement.val, 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert replacement.right.val == 3, errors.wrong_value(replacement.right.val, 3) # pyright:ignore[reportOptionalMemberAccess]
 
         deleted3 = bst.delete(1)
         assert deleted3 is True, "Should be True"
         assert bst.search(1) is None, "Should be None"
         assert bst.get_size() == 5, "Size should be 5"
-        replacement2 = bst.get_root().left
-        assert replacement2.val == 3, errors.wrong_value(replacement2.val, 3)
-        assert replacement2.right is None, "Should be None"
-
+        replacement2 = bst.get_root().left # pyright:ignore[reportOptionalMemberAccess]
+        assert replacement2.val == 3, errors.wrong_value(replacement2.val, 3) # pyright:ignore[reportOptionalMemberAccess]
+        assert replacement2.right is None, "Should be None" # pyright:ignore[reportOptionalMemberAccess]
 
         assert bst.delete(0) is False, "Should be False"
         assert bst.get_size() == 5, "Size should be 5"
@@ -179,7 +178,7 @@ class TestBST:
         assert deleted4 is True, "Should be True"
         assert bst.search(3) is None, "Should be None"
         assert bst.get_size() == 4, "Size should be 4"
-        replacement3 = bst.get_root().left
+        replacement3 = bst.get_root().left # pyright:ignore[reportOptionalMemberAccess]
         assert replacement3 is None, "Should be None"
 
 
@@ -187,20 +186,20 @@ class TestBST:
         assert deleted5 is True, "Should be True"
         assert bst.search(7) is None, "Should be None"
         assert bst.get_size() == 3, "Size should be 3"
-        replacement4 = bst.get_root().right
-        assert replacement4.val == 6, errors.wrong_value(replacement4.val, 6)
-        assert replacement4.left is None, "Should be None"
-        assert replacement4.right.val == 8, errors.wrong_value(replacement4.right.val, 8)  
+        replacement4 = bst.get_root().right # pyright:ignore[reportOptionalMemberAccess]
+        assert replacement4.val == 6, errors.wrong_value(replacement4.val, 6) # pyright:ignore[reportOptionalMemberAccess]
+        assert replacement4.left is None, "Should be None" # pyright:ignore[reportOptionalMemberAccess]
+        assert replacement4.right.val == 8, errors.wrong_value(replacement4.right.val, 8)   # pyright:ignore[reportOptionalMemberAccess]
 
         deleted6 = bst.delete(8)
         assert deleted6 is True, "Should be True"
         assert bst.search(8) is None, "Should be None"
-        assert bst.get_root().right.right is None, "Should be None"
+        assert bst.get_root().right.right is None, "Should be None" # pyright:ignore[reportOptionalMemberAccess]
 
         deleted7 = bst.delete(5)
         assert deleted7 is True, "Should be True"
         assert bst.search(5) is None, "Should be None"
-        assert bst.get_root().val == 6, errors.wrong_value(bst.get_root().val, 6)
+        assert bst.get_root().val == 6, errors.wrong_value(bst.get_root().val, 6) # pyright:ignore[reportOptionalMemberAccess]
 
     def test_BFT(self):
         bst = BST[int]()
@@ -236,22 +235,22 @@ class TestBST:
 
         assert bst.BFS(10) is None, "Should be None"
         two = bst.BFS(2)
-        assert two.val == 2, errors.wrong_value(two.val, 2)
-        assert two.left.val == 1, errors.wrong_value(two.left.val, 1)
-        assert two.right.val == 3, errors.wrong_value(two.right.val, 3)
+        assert two.val == 2, errors.wrong_value(two.val, 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert two.left.val == 1, errors.wrong_value(two.left.val, 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert two.right.val == 3, errors.wrong_value(two.right.val, 3) # pyright:ignore[reportOptionalMemberAccess]
 
         seven = bst.BFS(7)
-        assert seven.val == 7, errors.wrong_value(seven.val, 7)
-        assert seven.left.val == 6, errors.wrong_value(seven.left.val, 6)
-        assert seven.right.val == 8, errors.wrong_value(seven.right.val, 8)
+        assert seven.val == 7, errors.wrong_value(seven.val, 7) # pyright:ignore[reportOptionalMemberAccess]
+        assert seven.left.val == 6, errors.wrong_value(seven.left.val, 6) # pyright:ignore[reportOptionalMemberAccess]
+        assert seven.right.val == 8, errors.wrong_value(seven.right.val, 8) # pyright:ignore[reportOptionalMemberAccess]
 
         one = bst.BFS(1)
-        assert one.val == 1, errors.wrong_value(one.val, 1)
-        assert one.left is None and one.right is None, "Shouldn't have children"
+        assert one.val == 1, errors.wrong_value(one.val, 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert one.left is None and one.right is None, "Shouldn't have children" # pyright:ignore[reportOptionalMemberAccess]
 
         six = bst.BFS(6)
-        assert six.val == 6, errors.wrong_value(six.val, 6)
-        assert six.left is None and six.right is None, "Shouldn't have children"
+        assert six.val == 6, errors.wrong_value(six.val, 6) # pyright:ignore[reportOptionalMemberAccess]
+        assert six.left is None and six.right is None, "Shouldn't have children" # pyright:ignore[reportOptionalMemberAccess]
 
 
     def test_DFT(self):
