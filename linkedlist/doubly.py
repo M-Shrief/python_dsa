@@ -6,23 +6,23 @@ class DoublyNode(Generic[T]):
     """Doubly Node for a Doubly Linkedlist"""
     def __init__(self, data: T, prev=None, next=None):
         self.data = data
-        self.prev: DoublyNode | None = prev
-        self.next: DoublyNode | None = next
+        self.prev: DoublyNode[T] | None = prev
+        self.next: DoublyNode[T] | None = next
 
 class Doubly(Generic[T]):
 
     def __init__(self):
         self.__size: int = 0
-        self.__head: DoublyNode | None = None
-        self.__tail: DoublyNode | None = None
+        self.__head: DoublyNode[T] | None = None
+        self.__tail: DoublyNode[T] | None = None
     
     def get_size(self)->int:
         return self.__size
     
-    def get_head(self)->DoublyNode | None:
+    def get_head(self)->DoublyNode[T] | None:
         return self.__head
     
-    def get_tail(self)->DoublyNode | None:
+    def get_tail(self)->DoublyNode[T] | None:
         if(self.__size <= 1):
             return self.__head
         return self.__tail
@@ -33,7 +33,7 @@ class Doubly(Generic[T]):
         if(self.__size == 0):
             self.__head = doublyNode
         else:
-            self.__head.prev = doublyNode
+            self.__head.prev = doublyNode # pyright:ignore[reportOptionalMemberAccess]
             doublyNode.next = self.__head
             self.__head = doublyNode
             if(self.__size == 1):
@@ -46,7 +46,7 @@ class Doubly(Generic[T]):
             return self.add_first(val)
         
         doublyNode = DoublyNode[T](val)
-        self.get_tail().next = doublyNode
+        self.get_tail().next = doublyNode # pyright:ignore[reportOptionalMemberAccess]
         doublyNode.prev = self.get_tail()
         self.__tail = doublyNode
 
@@ -61,12 +61,12 @@ class Doubly(Generic[T]):
             self.__head = None
             self.__tail = None
             self.__size -= 1
-            return node.data
+            return node.data # pyright:ignore[reportOptionalMemberAccess]
         
-        self.__head = node.next
-        self.__head.prev = None
+        self.__head = node.next # pyright:ignore[reportOptionalMemberAccess]
+        self.__head.prev = None # pyright:ignore[reportOptionalMemberAccess]
         self.__size -= 1
-        return node.data
+        return node.data # pyright:ignore[reportOptionalMemberAccess]
 
     def delete_last(self)-> T | None:
         if(self.__size == 0 ):
@@ -75,11 +75,11 @@ class Doubly(Generic[T]):
             return self.delete_first()
 
         node = self.get_tail()
-        self.__tail = node.prev
-        self.__tail.next = None
+        self.__tail = node.prev # pyright:ignore[reportOptionalMemberAccess]
+        self.__tail.next = None # pyright:ignore[reportOptionalMemberAccess]
         
         self.__size -= 1
-        return node.data
+        return node.data # pyright:ignore[reportOptionalMemberAccess]
 
     def delete_by_index(self, index: int)-> T | None:
         if(index < 0 or index >= self.__size):
@@ -91,16 +91,16 @@ class Doubly(Generic[T]):
         
         current = self.__head
         for count in range(index - 1):
-            current = current.next
+            current = current.next # pyright:ignore[reportOptionalMemberAccess]
 
-        removedNode = current.next
-        current.next = removedNode.next
-        current.next.prev = current
+        removedNode = current.next # pyright:ignore[reportOptionalMemberAccess]
+        current.next = removedNode.next # pyright:ignore[reportOptionalMemberAccess]
+        current.next.prev = current # pyright:ignore[reportOptionalMemberAccess]
 
         self.__size -= 1
-        return removedNode.data
+        return removedNode.data # pyright:ignore[reportOptionalMemberAccess]
 
-    def delete_by_node(self, node: DoublyNode)-> T | None:
+    def delete_by_node(self, node: DoublyNode[T] | None)-> T | None:
         if(node is None): 
             return None
         if(node == self.__head):
@@ -108,8 +108,8 @@ class Doubly(Generic[T]):
         if(node == self.__tail):
             return self.delete_last()
         
-        node.prev.next = node.next
-        node.next.prev = node.prev
+        node.prev.next = node.next # pyright:ignore[reportOptionalMemberAccess]
+        node.next.prev = node.prev # pyright:ignore[reportOptionalMemberAccess]
         node.next = None
         node.prev = None
         
@@ -118,8 +118,8 @@ class Doubly(Generic[T]):
 
     def reverse(self):
         """Reverse the order of the linkedlist's nodes"""
-        prev: DoublyNode | None = None
-        next: DoublyNode | None = None
+        prev: DoublyNode[T] | None = None
+        next: DoublyNode[T] | None = None
         current = self.__head
 
         while(current is not None):
@@ -139,8 +139,8 @@ class Doubly(Generic[T]):
             return arr
         
         current = self.__head
-        arr.append(current.data)
-        while(current.next is not None):
-            current = current.next
+        arr.append(current.data) # pyright:ignore[reportOptionalMemberAccess]
+        while(current.next is not None): # pyright:ignore[reportOptionalMemberAccess]
+            current = current.next # pyright:ignore[reportOptionalMemberAccess]
             arr.append(current.data)
         return arr

@@ -6,23 +6,23 @@ class SinglyNode(Generic[T]):
     """Singly Node for a Singly Linkedlist"""
     def __init__(self, data: T, next=None):
         self.data = data
-        self.next: SinglyNode | None = next
+        self.next: SinglyNode[T] | None = next
 
 
 class Singly(Generic[T]):
     """Singly linkedList"""
     def __init__(self):
         self.__size = 0
-        self.__head: SinglyNode | None = None
-        self.__tail: SinglyNode | None = None
+        self.__head: SinglyNode[T] | None = None
+        self.__tail: SinglyNode[T] | None = None
 
     def get_size(self) -> int: 
         return self.__size
     
-    def get_head(self) -> SinglyNode | None: 
+    def get_head(self) -> SinglyNode[T] | None: 
         return self.__head
     
-    def get_tail(self) -> SinglyNode | None: 
+    def get_tail(self) -> SinglyNode[T] | None: 
         return self.__tail
 
     def add_first(self, val: T):
@@ -43,7 +43,7 @@ class Singly(Generic[T]):
 
         node = SinglyNode[T](val)
         # old singly.__tail.next will point to the new node
-        self.__tail.next = node
+        self.__tail.next = node  # pyright:ignore[reportOptionalMemberAccess]
         # making the new node as singly.__tail
         self.__tail = node
 
@@ -59,10 +59,10 @@ class Singly(Generic[T]):
             self.__head = None
             self.__tail = None
         else:
-            self.__head = current.next
+            self.__head = current.next # pyright:ignore[reportOptionalMemberAccess]
 
         self.__size -= 1
-        return current.data
+        return current.data # pyright:ignore[reportOptionalMemberAccess]
 
     def delete_last(self)-> T | None:
         return self.delete_by_index(self.__size - 1)
@@ -76,19 +76,19 @@ class Singly(Generic[T]):
             return self.delete_first()
         
         current = self.__head
-        for count in range(index - 1):
-            current = current.next
+        for _ in range(index - 1):
+            current = current.next # pyright:ignore[reportOptionalMemberAccess]
         
-        removedNode = current.next
-        current.next = current.next.next
+        removedNode = current.next # pyright:ignore[reportOptionalMemberAccess]
+        current.next = current.next.next # pyright:ignore[reportOptionalMemberAccess]
         self.__size -= 1
 
-        return removedNode.data
+        return removedNode.data # pyright:ignore[reportOptionalMemberAccess]
 
     def reverse(self):
         """Reverse the order of the linkedlist's nodes"""
-        next: SinglyNode | None = None
-        prev: SinglyNode | None = None
+        next: SinglyNode[T] | None = None
+        prev: SinglyNode[T] | None = None
         
         current = self.__head
         while (current is not None):
@@ -107,8 +107,8 @@ class Singly(Generic[T]):
             return arr
         
         current = self.__head
-        arr.append(current.data)
-        while(current.next is not None):
-            current = current.next
+        arr.append(current.data)  # pyright:ignore[reportOptionalMemberAccess]
+        while(current.next is not None):  # pyright:ignore[reportOptionalMemberAccess]
+            current = current.next  # pyright:ignore[reportOptionalMemberAccess]
             arr.append(current.data)
         return arr

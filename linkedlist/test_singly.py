@@ -11,9 +11,9 @@ class TestSignly:
         assert singlyList.get_size() == 3, "Size should be 3"
 
         head = singlyList.get_head()
-        assert head.data == 3, errors.wrong_value(head.data, 3)
-        assert head.next.data == 2, errors.wrong_value(head.next.data , 2)
-        assert head.next.next.data == 1, errors.wrong_value(head.next.next.data , 1)
+        assert head.data == 3, errors.wrong_value(head.data, 3) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.data == 2, errors.wrong_value(head.next.data , 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.data == 1, errors.wrong_value(head.next.next.data , 1) # pyright:ignore[reportOptionalMemberAccess]
         
     def test_add_last(self):
         singlyList = Singly[int]()
@@ -24,9 +24,9 @@ class TestSignly:
         assert singlyList.get_size() == 3, "Size should be 3"
 
         head = singlyList.get_head()
-        assert head.data == 1, errors.wrong_value(head.data , 1)
-        assert head.next.data == 2, errors.wrong_value(head.next.data , 2)
-        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data , 3)
+        assert head.data == 1, errors.wrong_value(head.data , 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.data == 2, errors.wrong_value(head.next.data , 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data , 3) # pyright:ignore[reportOptionalMemberAccess]
 
     def test_delete_first(self):
         singlyList = Singly[int]()
@@ -101,11 +101,11 @@ class TestSignly:
         singlyList.reverse()
 
         head = singlyList.get_head()
-        assert head.data == 5, errors.wrong_value(head.data, 5)
-        assert head.next.data == 4, errors.wrong_value(head.next.data, 4)
-        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data, 3)
-        assert head.next.next.next.data == 2, errors.wrong_value(head.next.next.next.data, 2)
-        assert head.next.next.next.next.data == 1, errors.wrong_value(head.next.next.next.next.data, 1)
+        assert head.data == 5, errors.wrong_value(head.data, 5) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.data == 4, errors.wrong_value(head.next.data, 4) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data, 3) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.next.data == 2, errors.wrong_value(head.next.next.next.data, 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.next.next.data == 1, errors.wrong_value(head.next.next.next.next.data, 1) # pyright:ignore[reportOptionalMemberAccess]
 
     def test_get_array(self):
         singlyList = Singly[int]()

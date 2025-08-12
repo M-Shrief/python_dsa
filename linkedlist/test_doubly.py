@@ -12,17 +12,16 @@ class TestDoubly:
         assert doublyList.get_size() == 3, "Size should be 3"
 
         head = doublyList.get_head()
-        assert head.data == 3, errors.wrong_value(head.data, 3)
-        assert head.next.data == 2, errors.wrong_value(head.next.data, 2)
-        assert head.next.next.data == 1, errors.wrong_value(head.next.next.data, 1)
+        assert head.data == 3, errors.wrong_value(head.data, 3) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.data == 2, errors.wrong_value(head.next.data, 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.data == 1, errors.wrong_value(head.next.next.data, 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.prev is None, errors.wrong_value(head.prev, None) # pyright:ignore[reportOptionalMemberAccess]
 
-        assert head.prev is None, errors.wrong_value(head.prev, None)
+        assert head.next.prev == head, errors.wrong_value(head.next.prev, head) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.prev.data == 3, errors.wrong_value(head.next.prev.data, 3) # pyright:ignore[reportOptionalMemberAccess]
 
-        assert head.next.prev == head, errors.wrong_value(head.next.prev, head)
-        assert head.next.prev.data == 3, errors.wrong_value(head.next.prev.data, 3)
-
-        assert head.next.next.prev == head.next, errors.wrong_value(head.next.next.prev, head.next)
-        assert head.next.next.prev.data == 2, errors.wrong_value(head.next.next.prev.data, 2)
+        assert head.next.next.prev == head.next, errors.wrong_value(head.next.next.prev, head.next) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.prev.data == 2, errors.wrong_value(head.next.next.prev.data, 2) # pyright:ignore[reportOptionalMemberAccess]
 
     def test_add_last(self):
         doublyList = Doubly[int]()
@@ -33,17 +32,17 @@ class TestDoubly:
         assert doublyList.get_size() == 3, "Size should be 3"
 
         head = doublyList.get_head()
-        assert head.data == 1, errors.wrong_value(head.data, 1)
-        assert head.next.data == 2, errors.wrong_value(head.next.data, 2)
-        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data, 3)
+        assert head.data == 1, errors.wrong_value(head.data, 1) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.data == 2, errors.wrong_value(head.next.data, 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data, 3) # pyright:ignore[reportOptionalMemberAccess]
 
-        assert head.prev is None, errors.wrong_value(head.prev, None)
+        assert head.prev is None, errors.wrong_value(head.prev, None) # pyright:ignore[reportOptionalMemberAccess]
 
-        assert head.next.prev == head, errors.wrong_value(head.next.prev, head)
-        assert head.next.prev.data == 1, errors.wrong_value(head.next.prev.data, 1)
+        assert head.next.prev == head, errors.wrong_value(head.next.prev, head) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.prev.data == 1, errors.wrong_value(head.next.prev.data, 1) # pyright:ignore[reportOptionalMemberAccess]
 
-        assert head.next.next.prev == head.next, errors.wrong_value(head.next.next.prev, head.next)
-        assert head.next.next.prev.data == 2, errors.wrong_value(head.next.next.prev.data, 2)
+        assert head.next.next.prev == head.next, errors.wrong_value(head.next.next.prev, head.next) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.prev.data == 2, errors.wrong_value(head.next.next.prev.data, 2) # pyright:ignore[reportOptionalMemberAccess]
 
     def test_delete_first(self):
         doublyList = Doubly[int]()
@@ -146,11 +145,11 @@ class TestDoubly:
         singlyList.reverse()
 
         head = singlyList.get_head()
-        assert head.data == 5, errors.wrong_value(head.data, 5)
-        assert head.next.data == 4, errors.wrong_value(head.next.data, 4)
-        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data, 3)
-        assert head.next.next.next.data == 2, errors.wrong_value(head.next.next.next.data, 2)
-        assert head.next.next.next.next.data == 1, errors.wrong_value(head.next.next.next.next.data, 1)
+        assert head.data == 5, errors.wrong_value(head.data, 5) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.data == 4, errors.wrong_value(head.next.data, 4) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.data == 3, errors.wrong_value(head.next.next.data, 3) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.next.data == 2, errors.wrong_value(head.next.next.next.data, 2) # pyright:ignore[reportOptionalMemberAccess]
+        assert head.next.next.next.next.data == 1, errors.wrong_value(head.next.next.next.next.data, 1) # pyright:ignore[reportOptionalMemberAccess]
 
     def test_get_array(self):
         singlyList = Doubly[int]()
