@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, List
+from typing import TypeVar, Generic
 T = TypeVar('T')
 
 class PH_Node(Generic[T]):
@@ -13,7 +13,7 @@ class PRIORITY_HEAP(Generic[T]):
     """Priority Heap, every Node/item takes a value and its priority
     The smaller the priority, the more it's prioritized"""
     def __init__(self):
-        self.__list: List[PH_Node[T]] = []
+        self.__list: list[PH_Node[T]] = []
 
     def __is_preceding(self, a: PH_Node[T], b: PH_Node[T])-> bool:
         """Comparing the priority value for 2 node in the priority heap
@@ -32,9 +32,9 @@ class PRIORITY_HEAP(Generic[T]):
         self.__list.append(newNode)
         self.__heapify_up(len(self.__list) - 1)
     
-    def pop(self)-> PH_Node[T]:
+    def pop(self)-> PH_Node[T] | None:
         if(len(self.__list) == 0):
-            return
+            return None
         
         top = self.__list[0]
 

@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, Callable, List
+from typing import TypeVar, Generic, Callable
 
 T = TypeVar('T')
 
@@ -6,7 +6,7 @@ class Heap(Generic[T]):
     """Heap Data Structure.
     Takesfunction as an argument to compare items from the same type"""
     def __init__(self, compareFn: Callable[[T, T], bool]):
-        self.__list: List[T] = []
+        self.__list: list[T] = []
         self.__compare: Callable[[T, T], bool] = compareFn
 
     def __swap(self, id1: int, id2: int):
@@ -22,9 +22,9 @@ class Heap(Generic[T]):
         self.__list.append(val)
         self.__heapify_up(len(self.__list) - 1)
     
-    def pop(self)-> T:
+    def pop(self)-> T | None:
         if(len(self.__list) == 0):
-            return
+            return None
         
         top = self.__list[0]
 
