@@ -1,5 +1,5 @@
 from ..linkedlist.doubly import Doubly, DoublyNode
-from typing import TypeVar, Generic, Dict
+from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
@@ -15,17 +15,17 @@ class LRU(Generic[T]):
 
     def __init__(self, capacity: int):
         # A Doubly Linked list
-        self.__dl = Doubly[T]()
+        self.__dl = Doubly[Item[T]]()
         # A hashmap using dictionaries, strings as a key
         # and the value is a DoublyNode which have Item[T] as data.
-        self.__storage: Dict[str, DoublyNode[Item[T]]]  = {}
+        self.__storage: dict[str, DoublyNode[Item[T]]]  = {}
         # LRU capacity
         self.__capacity = capacity
 
     def get_size(self)->int:
         return self.__dl.get_size()
 
-    def get_top(self)-> Item | None:
+    def get_top(self)-> Item[T] | None:
         top = self.__dl.get_head()
         if(top is None):
             return None
@@ -37,7 +37,7 @@ class LRU(Generic[T]):
 
         newItem = Item[T](key,val)
         self.__dl.add_first(newItem)
-        self.__storage[key] = self.__dl.get_head()
+        self.__storage[key] = self.__dl.get_head() # pyright: ignore[reportArgumentType]
         return
 
     def __evict(self):
@@ -45,7 +45,7 @@ class LRU(Generic[T]):
             return
         
         deleted = self.__dl.delete_last()
-        del self.__storage[deleted.key]
+        del self.__storage[deleted.key]  # pyright: ignore[reportOptionalMemberAccess]
         return
     
     def get(self, key: str)-> T | None:
@@ -59,5 +59,5 @@ class LRU(Generic[T]):
         
         self.__dl.delete_by_node(n)
         self.__dl.add_first(n.data)
-        self.__storage[key] = self.__dl.get_head()
+        self.__storage[key] = self.__dl.get_head() # pyright: ignore[reportArgumentType]
         return n.data.val
