@@ -1,5 +1,5 @@
 from ..heap.heap import Heap
-from typing import TypeVar, Generic, Dict
+from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
@@ -13,7 +13,7 @@ class LFU(Generic[T]):
     """Least Frequenty Used cache data structure"""
     def __init__(self, capacity: int):
         self.__min_heap = Heap[LFUNode[T]](self.__is_least_frequent)
-        self.__storage: Dict[str, LFUNode[T]]  = {}
+        self.__storage: dict[str, LFUNode[T]]  = {}
         self.__size = 0
         self.__capacity = capacity
 

@@ -1,5 +1,5 @@
 from ..linkedlist.doubly import Doubly, DoublyNode
-from typing import TypeVar, Generic, Dict
+from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
@@ -15,13 +15,13 @@ class MRU(Generic[T]):
 
     def __init__(self, capacity: int):
         self.__doubly = Doubly[Item[T]]()
-        self.__storage: Dict[str, DoublyNode[Item[T]]] = {}
+        self.__storage: dict[str, DoublyNode[Item[T]]] = {}
         self.__capacity = capacity
 
     def get_size(self) -> int:
         return self.__doubly.get_size()
     
-    def get_top(self) -> Item[T]:
+    def get_top(self) -> Item[T] | None:
         top = self.__doubly.get_head()
         if(top is None):
             return None
@@ -33,7 +33,7 @@ class MRU(Generic[T]):
 
         newItem = Item[T](key, val)
         self.__doubly.add_first(newItem)
-        self.__storage[key] = self.__doubly.get_head()
+        self.__storage[key] = self.__doubly.get_head() # pyright: ignore[reportArgumentType]
         return
 
     def __evict(self):
@@ -41,7 +41,7 @@ class MRU(Generic[T]):
             return
 
         deleted = self.__doubly.delete_last()
-        del self.__storage[deleted.key]
+        del self.__storage[deleted.key] # pyright: ignore[reportOptionalMemberAccess]
         return
 
     def get(self, key: str) -> T | None:
@@ -55,6 +55,6 @@ class MRU(Generic[T]):
         
         self.__doubly.delete_by_node(n)
         self.__doubly.add_last(n.data)
-        self.__storage[key] = self.__doubly.get_tail()
+        self.__storage[key] = self.__doubly.get_tail() # pyright: ignore[reportArgumentType]
 
         return n.data.val

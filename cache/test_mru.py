@@ -15,7 +15,7 @@ class TestMRU:
         assert mru.get("two") == 2, errors.wrong_value(mru.get("two"), 2)     
         assert mru.get("three") == 3, errors.wrong_value(mru.get("three"), 3)     
 
-        assert mru.get_top().key == "one", errors.wrong_value(mru.get_top().key, "one")
+        assert mru.get_top().key == "one", errors.wrong_value(mru.get_top().key, "one") # pyright: ignore[reportOptionalMemberAccess]
 
         mru.put('four', 4)
         assert mru.get("three") is None, "Should be None"

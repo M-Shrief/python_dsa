@@ -1,5 +1,5 @@
 from ..heap.heap import Heap
-from typing import TypeVar, Generic, Dict
+from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
@@ -15,7 +15,7 @@ class MFU(Generic[T]):
 
     def __init__(self, capacity: int):
         self.__max_heap = Heap[MFUNode[T]](self.__is_most_frequent)
-        self.__storage: Dict[str, MFUNode[T]] = {}
+        self.__storage: dict[str, MFUNode[T]] = {}
         self.__capacity = capacity
         self.__size = 0
 
