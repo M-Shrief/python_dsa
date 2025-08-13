@@ -1,5 +1,5 @@
 from hashlib import sha256
-from typing import TypeVar, Generic, Dict
+from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
@@ -14,7 +14,7 @@ class HMnode(Generic[T]):
 class Hashmap(Generic[T]):
     "Hashmap Data Structure with a certain capacity."
     def __init__(self, capacity: int):
-        self.__map: Dict[str, HMnode[T]] = {}
+        self.__map: dict[str, HMnode[T]] = {}
         self.__size = 0
         self.capacity = capacity
 
